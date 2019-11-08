@@ -3,6 +3,7 @@ import subprocess
 from time import sleep
 
 screen_width = int(subprocess.check_output(["tput", "cols"])[:3])
+screen_width = 40
 player_width = 10
 
 player1 = {
@@ -19,7 +20,7 @@ player2 = {
 	"bounds": [[screen_width-6, 0], [screen_width, 5]]
 }
 
-def print_screen():
+def print_screen(moves={}):
 	subprocess.run('clear')	
 	for _ in range(0, 6):
 		print()
@@ -27,12 +28,20 @@ def print_screen():
 	for i in range(0, 5):
 		for _ in range(0, player1["bounds"][0][0]):
 			print(" ", end="")
-		print(player1["body"][i], end="")
-		for _ in range(len(player1["body"][i]) + player1["bounds"][0][0], screen_width - len(player2["body"][i])):
+		body_len = 0
+		if i == player1["attack"][0]:
+			print(player1["attack][1], end="")
+			body_len = len(player1["attack"][1])
+		else:
+			print(player1["body"][i], end="")
+			body_len = len(player1["body"][i])
+		for _ in range(body_len + player1["bounds"][0][0], screen_width  len(player2["body"][i])):
 			print(" ", end="")
 		print(player2["body"][i], end="")
+		print()
 	for _ in range(0, screen_width):
 		print("=", end="")
+	print()
 	print("DAMAGE: 0.0%")
 print_screen()	
 while (True):
@@ -40,7 +49,7 @@ while (True):
 	if c == '\x1b[D':
 		if (player1["bounds"][0][0] > 0):
 			player1["bounds"][0][0] -= 1
-			player2["bounds"][1][0] -= 1
+			player1["bounds"][1][0] -= 1
 	elif c == '\x1b[C':
 		if (player1["bounds"][1][0] < screen_width and player1["bounds"][1][0] < player2["bounds"][0][0]):
 			player1["bounds"][0][0] += 1
