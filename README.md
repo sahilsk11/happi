@@ -1,7 +1,7 @@
 # happi
 
 A CLI-based online fighting game
-
+```
  _
 (_)
 \|__->
@@ -9,4 +9,4 @@ A CLI-based online fighting game
 / \
 ===========================================================
 DAMAGE: 0.0%
-
+```
